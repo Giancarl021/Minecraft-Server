@@ -1,6 +1,8 @@
 const express = require('express');
 const routes = express.Router();
 
-routes.get('/', (_, res) => res.json({ status: 'ok' }));
+// const Init = require('./controllers/Init');
+
+// routes.get('/init', Init);
 
 module.exports = routes;

@@ -1,3 +1,7 @@
+const MinecraftServer = require('./src/services/MinecraftServer');
+const ms = new MinecraftServer();
+ms.start();
+
 const socket = require('socket.io');
 const http = require('http');
 const app = require('./src/app');
@@ -8,6 +12,6 @@ const port = process.env.PORT || 3000;
 const server = http.createServer(app);
 const io = socket(server);
 
-socketRoutes(io);
+socketRoutes(io, ms);
 
 server.listen(port, () => console.log('Listening on port ' + port));

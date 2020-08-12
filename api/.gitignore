@@ -1,3 +1,6 @@
+bin/
+!bin/server.jar
+
 # Logs
 logs
 *.log
