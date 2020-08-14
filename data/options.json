@@ -1,6 +1,0 @@
-{
-    "server": {
-        "location": "bin/server.jar",
-        "ramSize": "2G"
-    }
-}

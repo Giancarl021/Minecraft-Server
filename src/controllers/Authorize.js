@@ -1,0 +1,43 @@
+const bcrypt = require('bcrypt');
+const generateToken = require('../util/generate-token');
+const connection = require('../database/connection');
+
+module.exports = async function (request, response) {
+    const {
+        username,
+        password
+    } = request.query;
+
+    if (!username) {
+        return response.status(400).json({
+            error: 'Missing email and username, you need one of them'
+        });
+    }
+
+    const rows = await connection('user').select('*').where('username', username);
+
+    if (!rows.length) {
+        return response.status(400).json({
+            error: 'An user with this user does not exists'
+        });
+    }
+
+    const user = rows[0].username;
+
+    const result = bcrypt.compareSync(password, rows[0].password);
+
+    if (!result) {
+        return response.status(400).json({
+            error: 'Wrong password'
+        });
+    }
+
+    const token = generateToken({
+        username: user
+    });
+
+    return response.status(200).json({
+        user,
+        token
+    });
+}
