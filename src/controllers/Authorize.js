@@ -3,14 +3,11 @@ const generateToken = require('../util/generate-token');
 const connection = require('../database/connection');
 
 module.exports = async function (request, response) {
-    const {
-        username,
-        password
-    } = request.query;
+    const { username, password } = request.body;
 
     if (!username) {
         return response.status(400).json({
-            error: 'Missing email and username, you need one of them'
+            error: 'Missing username'
         });
     }
 

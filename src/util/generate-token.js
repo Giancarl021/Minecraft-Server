@@ -1,4 +1,4 @@
-const auth = require('../../data/options.json');
+const { auth } = require('../../data/options.json');
 const jwt = require('jsonwebtoken');
 
 module.exports = function (params = {}) {

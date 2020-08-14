@@ -3,6 +3,7 @@ buildEnv();
 
 const MinecraftServer = require('./src/services/MinecraftServer');
 const ms = new MinecraftServer();
+global._ms = ms;
 
 const socket = require('socket.io');
 const http = require('http');

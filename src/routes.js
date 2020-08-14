@@ -7,12 +7,13 @@ const Restart = require('./controllers/Restart');
 const Props = require('./controllers/Props');
 
 const Authorize = require('./controllers/Authorize');
+const Auth = require('./middlewares/Auth');
 
 routes.get('/authorize', Authorize);
 
-routes.get('/start', Start);
-routes.get('/stop', Stop);
-routes.get('/restart', Restart);
-routes.post('/props', Props);
+routes.get('/start', Auth, Start);
+routes.get('/stop', Auth, Stop);
+routes.get('/restart', Auth, Restart);
+routes.post('/props', Auth, Props);
 
 module.exports = routes;
