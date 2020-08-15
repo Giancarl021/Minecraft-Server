@@ -15,7 +15,7 @@ module.exports = async function (request, response) {
 
     if (!rows.length) {
         return response.status(400).json({
-            error: 'An user with this user does not exists'
+            error: 'An user with this username does not exists'
         });
     }
 
