@@ -13,8 +13,8 @@ const ResetPassword = require('./controllers/ResetPassword');
 const Auth = require('./middlewares/Auth');
 const Refresh = require('./middlewares/Refresh');
 
-routes.get('/authorize', Authorize);
-routes.get('/refresh', Refresh, Authorize);
+routes.post('/authorize', Authorize);
+routes.post('/refresh', Refresh, Authorize);
 routes.post('/register', Auth, Register);
 routes.post('/reset', Auth, ResetPassword);
 
