@@ -18,5 +18,7 @@ module.exports = async function (request, response, next) {
     request.body.username = user.username;
     request.body.password = user.password;
 
+    delete refreshTokens[key];
+
     next();
 }
