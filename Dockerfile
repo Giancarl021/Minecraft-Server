@@ -2,10 +2,11 @@ FROM timbru31/java-node:alpine-jre
 
 WORKDIR /usr/app
 
-COPY package*.json ./
+COPY . .
+
 RUN npm install --only=production
 
-COPY . .
+RUN npm run knex:build
 
 EXPOSE 3000 25565
 

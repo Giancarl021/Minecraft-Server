@@ -5,7 +5,8 @@
   "license": "MIT",
   "scripts": {
     "start": "node server.js",
-    "dev": "nodemon server.js --ignore bin/"
+    "dev": "nodemon server.js --ignore bin/",
+    "knex:build": "knex migrate:latest --knexfile knexfile.js && knex seed:run --knexfile knexfile.js"
   },
   "dependencies": {
     "bcrypt": "^5.0.0",

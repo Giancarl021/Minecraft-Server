@@ -6,6 +6,7 @@ const path = require('path');
 module.exports = class MinecraftServer {
     constructor() {
         this._path = locate(server.location);
+        this._jar = _mockJar();
     }
 
     start() {
@@ -20,10 +21,11 @@ module.exports = class MinecraftServer {
         await new Promise((resolve, reject) => {
             try {
                 this._jar.on('exit', resolve);
-            } catch(err) {
+            } catch (err) {
                 reject(err);
             }
         });
+        this._har = _mockJar();
     }
 
     exec(command) {
@@ -32,5 +34,18 @@ module.exports = class MinecraftServer {
 
     onMessage(callback) {
         this._jar.stdout.on('data', callback);
+    }
+
+    _mockJar() {
+        return {
+            on() {},
+            stdin: {
+                write() {},
+                end() {}
+            },
+            stdout: {
+                on() {}
+            }
+        };
     }
 }
