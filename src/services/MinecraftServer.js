@@ -6,7 +6,7 @@ const path = require('path');
 module.exports = class MinecraftServer {
     constructor() {
         this._path = locate(server.location);
-        this._jar = _mockJar();
+        this._jar = this._mockJar();
     }
 
     start() {

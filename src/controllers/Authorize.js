@@ -29,12 +29,16 @@ module.exports = async function (request, response) {
         });
     }
 
-    const token = generateToken({
+    const { bearerToken, expiresIn, refreshToken } = generateToken({
         username: user
     });
 
+    refreshTokens[refreshToken] = { username, password };
+
     return response.status(200).json({
         user,
-        token
+        bearer_token: bearerToken,
+        expires_in: expiresIn,
+        refresh_token: refreshToken
     });
 }

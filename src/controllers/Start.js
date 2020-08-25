@@ -1,6 +1,6 @@
 module.exports = async function (_, response) {
     try {
-        await _ms.start();
+        await ms.start();
     } catch (err) {
         return response.status(500).json({
             error: err.message

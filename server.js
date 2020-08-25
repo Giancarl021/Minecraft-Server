@@ -1,9 +1,7 @@
+require('./src/services/global');
 const buildEnv = require('./src/services/environment');
-buildEnv();
 
-const MinecraftServer = require('./src/services/MinecraftServer');
-const ms = new MinecraftServer();
-global._ms = ms;
+buildEnv();
 
 const socket = require('socket.io');
 const http = require('http');
