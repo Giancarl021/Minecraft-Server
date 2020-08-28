@@ -4,6 +4,7 @@ const routes = express.Router();
 const Start = require('./controllers/Start');
 const Stop = require('./controllers/Stop');
 const Restart = require('./controllers/Restart');
+const Status = require('./controllers/Status');
 const Props = require('./controllers/Props');
 
 const Authorize = require('./controllers/Authorize');
@@ -21,6 +22,7 @@ routes.post('/reset', Auth, ResetPassword);
 routes.get('/start', Auth, Start);
 routes.get('/stop', Auth, Stop);
 routes.get('/restart', Auth, Restart);
+routes.get('/status', Auth, Status);
 routes.post('/props', Auth, Props);
 
 module.exports = routes;

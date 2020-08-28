@@ -8,9 +8,7 @@
     <!-- SOCKET -->
     <script src="http://localhost:3000/socket.io/socket.io.js"></script>
     <!-- LIBS -->
-    <link rel="stylesheet" href="assets/lib/xterm/xterm.css" type="text/css">
-    <script src="assets/lib/xterm/xterm.js"></script>
-    <script src="assets/lib/xterm/xterm-addon-fit.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.0/css/bulma.min.css">
     <!-- SELF -->
     <link rel="stylesheet" href="assets/css/main.css" type="text/css">
     <script src="assets/js/main.js"></script>
@@ -18,8 +16,50 @@
 </head>
 
 <body>
-</body>
-    <main id="terminal">
+    <section class="section">
+        <div class="container">
+            <h1 class="title">
+                Giancarl021/Mine-Server
+            </h1>
+            <p class="subtitle">
+                A complete minecraft server with dashboard for you!
+            </p>
+        </div>
+    </section>
+    <section class="section">
+        <div class="columns buttons are-large">
+            <button class="button column is-primary">Start</button>
+            <button class="button column is-warning">Restart</button>
+            <button class="button column is-danger">Stop</button>
+        </div>
+    </section>
+    <section class="section">
+        <div class="level">
+            <div class="level-item has-text-centered">
+                <div>
+                    <p class="heading">Status</p>
+                    <p class="title">Running</p>
+                </div>
+            </div>
+            <div class="level-item has-text-centered">
+                <div>
+                    <p class="heading">Players</p>
+                    <p class="title">3</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="section">
+        <h1 class="title">Terminal</h1>
+        <div class="terminal">
+            <div class="terminal-output"></div>
+            <input type="text" class="terminal-input" onkeypress="sendCommand(this, event)"></input>
+        </div>
+    </section>
+    <section class="section">
+        <h1 class="title">Properties</h1>
         
-    </main>
+    </section>
+</body>
+
 </html>
