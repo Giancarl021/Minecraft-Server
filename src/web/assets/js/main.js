@@ -1,4 +1,4 @@
-const PORT = 3000;
+const PORT = 80;
 const socket = io(`http://localhost:${PORT}/`);
 let output;
 

@@ -8,7 +8,7 @@ const http = require('http');
 const app = require('./src/app');
 const socketRoutes = require('./src/services/socket');
 
-const port = process.env.PORT || 3000;
+const port = 80;
 
 const server = http.createServer(app);
 const io = socket(server);

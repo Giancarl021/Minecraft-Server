@@ -14,15 +14,24 @@ const ResetPassword = require('./controllers/ResetPassword');
 const Auth = require('./middlewares/Auth');
 const Refresh = require('./middlewares/Refresh');
 
+const Static = require('./controllers/Static');
+
+// Authentication
 routes.post('/authorize', Authorize);
 routes.post('/refresh', Refresh, Authorize);
 routes.post('/register', Auth, Register);
 routes.post('/reset', Auth, ResetPassword);
 
+// Server
 routes.get('/start', Auth, Start);
 routes.get('/stop', Auth, Stop);
 routes.get('/restart', Auth, Restart);
 routes.get('/status', Auth, Status);
 routes.post('/props', Auth, Props);
+
+// Dashboard
+
+routes.get('/', Static('index.html'));
+routes.get('/login', Static('login.html'));
 
 module.exports = routes;
