@@ -31,7 +31,7 @@ routes.post('/props', Auth, Props);
 
 // Dashboard
 routes.get('/', Static('index.html'));
-// routes.get('/login', Static('login.html'));
+routes.get('/login', Static('login.html'));
 // routes.get('/properties', Static('properties.html'));
 // routes.get('/users', Static('users.html'));
 

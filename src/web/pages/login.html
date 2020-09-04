@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="shortcut icon" href="http://localhost/assets/favicon.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- LIBS -->
+    <link rel="stylesheet" href="http://localhost/assets/libs/bulma.css">
+    <script defer src="http://localhost/assets/libs/sweetalert2.js"></script>
+    <script defer src="http://localhost/assets/libs/font-awesome.js"></script>
+    <!-- SELF -->
+    <link rel="stylesheet" href="http://localhost/assets/css/login.css" type="text/css">
+    <script src="http://localhost/assets/js/api.js"></script>
+    <script src="http://localhost/assets/js/login.js"></script>
+    <title>Authentication</title>
+</head>
+
+<body>
+    <section class="section">
+        <div class="container">
+            <h1 class="title">
+                <i class="fas fa-cube"></i>
+                Giancarl021/Mine-Server
+            </h1>
+            <p class="subtitle">
+                A complete minecraft server with dashboard for you!
+            </p>
+        </div>
+    </section>
+    <section class="section container">
+        <div class="field">
+            <label class="label">Username</label>
+            <div class="control has-icons-left">
+                <input class="input" type="text" id="username" required>
+                <span class="icon is-small is-left">
+                    <i class="fas fa-user"></i>
+                </span>
+            </div>
+        </div>
+
+        <div class="field">
+            <label class="label">Password</label>
+            <div class="control has-icons-left">
+                <input class="input" type="password" id="password" required>
+                <span class="icon is-small is-left">
+                    <i class="fas fa-key"></i>
+                </span>
+            </div>
+        </div>
+        <div class="control is-full is-pulled-right">
+            <button class="button is-link" onclick="login()">Submit</button>
+        </div>
+    </section>
+</body>
+
+</html>
