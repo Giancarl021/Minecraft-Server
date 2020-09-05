@@ -43,3 +43,11 @@
 .terminal-input-line {
     color: #eee;
 }
+
+.terminal-input-line {
+    color: #2fd9f0;
+}
+
+.terminal-own-command {
+    color: #f0a32f;
+}

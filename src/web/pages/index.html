@@ -3,24 +3,25 @@
 
 <head>
     <meta charset="UTF-8">
-    <link rel="shortcut icon" href="http://localhost/assets/favicon.png" >
+    <link rel="shortcut icon" href="assets/favicon.png">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!-- SOCKET -->
-    <script src="http://localhost/socket.io/socket.io.js"></script>
+    <script src="socket.io/socket.io.js"></script>
     <!-- LIBS -->
-    <link rel="stylesheet" href="http://localhost/assets/libs/bulma.css">
-    <script defer src="http://localhost/assets/libs/font-awesome.js"></script>
+    <link rel="stylesheet" href="assets/libs/bulma.css">
+    <script src="assets/libs/font-awesome.js"></script>
+    <script src="assets/libs/dom-purify.js"></script>
     <!-- SELF -->
-    <link rel="stylesheet" href="http://localhost/assets/css/main.css" type="text/css">
-    <script src="http://localhost/assets/js/api.js"></script>
-    <script src="http://localhost/assets/js/main.js"></script>
-    <title>Console</title>
+    <link rel="stylesheet" href="assets/css/main.css" type="text/css">
+    <script src="assets/js/api.js"></script>
+    <script src="assets/js/dashboard.js"></script>
+    <title>Dashboard</title>
 </head>
 
 <body>
-    <section class="section">
-        <div class="container">
+    <section class="section level">
+        <div class="level-item-left">
             <h1 class="title">
                 <i class="fas fa-cube"></i>
                 Giancarl021/Mine-Server
@@ -29,40 +30,41 @@
                 A complete minecraft server with dashboard for you!
             </p>
         </div>
-    </section>
-    <section class="section">
-        <div class="columns buttons are-large">
-            <button class="button column is-primary">Start</button>
-            <button class="button column is-warning">Restart</button>
-            <button class="button column is-danger">Stop</button>
+        <div class="level-item-right">
+            <div class="container">
+                <p class="subtitle mb-0">
+                    <span id="user"></span>
+                    <span class="icon">
+                        <i class="fas fa-user"></i>
+                    </span>
+                </p>
+                <a class="is-pulled-right" href="#" onclick="clearAuthentication()">Log Out</a>
+            </div>
         </div>
     </section>
     <section class="section">
-        <div class="level">
-            <div class="level-item has-text-centered">
-                <div>
-                    <p class="heading">Status</p>
-                    <p class="title">Running</p>
-                </div>
-            </div>
-            <div class="level-item has-text-centered">
-                <div>
-                    <p class="heading">Players</p>
-                    <p class="title">3</p>
-                </div>
-            </div>
+        <div class="container has-text-centered">
+            <p class="heading">Status</p>
+            <p class="title">Running</p>
+        </div>
+    </section>
+    <section class="section">
+        <div class="columns buttons are-large">
+            <button class="button column is-primary" onclick="call(this.innerText.toLowerCase())">Start</button>
+            <button class="button column is-warning" onclick="call(this.innerText.toLowerCase())">Restart</button>
+            <button class="button column is-danger" onclick="call(this.innerText.toLowerCase())">Stop</button>
         </div>
     </section>
     <section class="section">
         <h1 class="title">Terminal</h1>
         <div class="terminal">
             <div class="terminal-output"></div>
-            <input type="text" class="terminal-input" onkeypress="sendCommand(this, event)"></input>
+            <input type="text" class="terminal-input" onkeypress="sendCommand(this, event)" spellcheck="false"></input>
         </div>
     </section>
     <section class="section">
         <h1 class="title">Properties</h1>
-        
+
     </section>
 </body>
 

@@ -1,5 +1,5 @@
 module.exports = async function (request, response, next) {
-    const { refresh_token: key} = request.body;
+    const { refresh_token: key } = request.body;
 
     if(!key) {
         return response.status(401).json({

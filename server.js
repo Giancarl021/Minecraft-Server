@@ -1,6 +1,5 @@
 require('./src/services/global');
 const buildEnv = require('./src/services/environment');
-
 buildEnv();
 
 const socket = require('socket.io');

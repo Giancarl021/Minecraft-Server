@@ -5,7 +5,7 @@
   "license": "MIT",
   "scripts": {
     "start": "node server.js",
-    "dev": "nodemon server.js --ignore bin/",
+    "dev": "nodemon server.js --ignore bin/ --ignore data/",
     "knex:build": "knex migrate:latest --knexfile knexfile.js && knex seed:run --knexfile knexfile.js"
   },
   "dependencies": {
@@ -16,6 +16,7 @@
     "knex": "^0.21.4",
     "rand-token": "^1.0.1",
     "socket.io": "^2.3.0",
+    "socketio-auth": "^0.1.1",
     "sqlite3": "^5.0.0"
   },
   "devDependencies": {

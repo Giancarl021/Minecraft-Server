@@ -7,7 +7,7 @@ async function login() {
         return;
     }
 
-    const response = await get('authorize', {
+    const response = await get('/authorize', {
         method: 'POST',
         body: {
             username,
@@ -20,7 +20,7 @@ async function login() {
         return;
     }
 
-    const { bearer_token, expires_in, refresh_token } = response;
+    const { bearer_token, expires_in, refresh_token, user } = response;
 
     const now = new Date(Date.now());
 
@@ -30,10 +30,17 @@ async function login() {
     const expireRefresh = new Date(now);
     expireRefresh.setDate(expireRefresh.getDate() + 14);
 
-    document.cookie = `bearer_token=${bearer_token} expires=${expireBearer.toUTCString()}; path=/`
-    document.cookie = `refresh_token=${refresh_token} expires=${expireRefresh.toUTCString()} path=/`;
+    localStorage.setItem('user', user);
+    USER = user;
 
-    document.location.href = document.location.href.replace(/login.*$/, '');
+    localStorage.setItem('refreshToken', refresh_token);
+
+    localStorage.setItem('bearerToken', JSON.stringify({
+        data: bearer_token,
+        expires_in: Number(expireBearer)
+    }));
+
+    document.location.href = URI;
 
     function getValue(selector) {
         return document.querySelector(selector).value;
@@ -47,3 +54,13 @@ async function login() {
         });
     }
 }
+
+function init() {
+    const form = document.querySelector('.section.container');
+
+    form.addEventListener('keypress', ({ key }) => {
+        if(key === 'Enter') login();
+    });
+}
+
+document.addEventListener('DOMContentLoaded', init);
