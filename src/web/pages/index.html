@@ -30,7 +30,7 @@
                 A complete minecraft server with dashboard for you!
             </p>
         </div>
-        <div class="level-item-right">
+        <div class="level-item-right has-text-centered">
             <div class="container">
                 <p class="subtitle mb-0">
                     <span id="user"></span>
@@ -38,14 +38,14 @@
                         <i class="fas fa-user"></i>
                     </span>
                 </p>
-                <a class="is-pulled-right" href="#" onclick="clearAuthentication()">Log Out</a>
+                <a href="#" onclick="clearAuthentication()">Log Out</a>
             </div>
         </div>
     </section>
     <section class="section">
         <div class="container has-text-centered">
             <p class="heading">Status</p>
-            <p class="title">Running</p>
+            <p class="title" id="status"></p>
         </div>
     </section>
     <section class="section">
@@ -64,7 +64,13 @@
     </section>
     <section class="section">
         <h1 class="title">Properties</h1>
+        <div class="container" id="props">
 
+        </div>
+        <div class="control is-full is-pulled-right">
+            <button class="button is-warning" onclick="login()">Apply</button>
+            <button class="button is-danger" onclick="login()">Apply and Restart</button>
+        </div>
     </section>
 </body>
 

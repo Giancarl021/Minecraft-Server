@@ -1,12 +1,12 @@
 const jwt = require('jsonwebtoken');
 const { auth } = require('../../data/options.json');
 const time = require('../util/time');
-const authenticate = require('socketio-auth');
+const socketAuth = require('socketio-auth');
 
 module.exports = function (socket, server) {
     const users = {};
 
-    authenticate(socket, {
+    socketAuth(socket, {
         authenticate(socket, data, callback) {
             let decoded;
             const { token } = data;
@@ -23,6 +23,12 @@ module.exports = function (socket, server) {
     });
 
     const all = socket.sockets;
+
+    const statusCallback = message => {
+        all.emit('status', message);
+    };
+
+    server.onStatusUpdate(statusCallback);
 
     socket.on('connection', socket => {
         server.onMessage(message => all.emit('out', message.toString()));

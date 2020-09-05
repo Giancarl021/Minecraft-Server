@@ -12,6 +12,7 @@
 .terminal * {
     color: inherit;
     font-family: inherit;
+    transition: opacity .3s;
 }
 
 .terminal-input {

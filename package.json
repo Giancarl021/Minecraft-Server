@@ -5,7 +5,7 @@
   "license": "MIT",
   "scripts": {
     "start": "node server.js",
-    "dev": "nodemon server.js --ignore bin/ --ignore data/",
+    "dev": "nodemon server.js --ignore bin/ --ignore data/ --ignore src/web/assets/",
     "knex:build": "knex migrate:latest --knexfile knexfile.js && knex seed:run --knexfile knexfile.js"
   },
   "dependencies": {

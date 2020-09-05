@@ -27,7 +27,7 @@ routes.get('/start', Auth, Start);
 routes.get('/stop', Auth, Stop);
 routes.get('/restart', Auth, Restart);
 routes.get('/status', Auth, Status);
-routes.post('/props', Auth, Props);
+routes.get('/props', Auth, Props);
 
 // Dashboard
 routes.get('/', Static('index.html'));
