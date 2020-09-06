@@ -3,5 +3,5 @@ data/*
 bin/*
 docs/
 *.md
-*.sqlite
+**/*.sqlite
 yarn.lock

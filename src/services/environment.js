@@ -3,6 +3,13 @@ const locate = require('../util/locate');
 const files = require('./files');
 
 module.exports = function () {
+    const dirs = ['bin', 'data'];
+
+    dirs.forEach(dir => {
+        const path = locate(dir);
+        if(!fs.existsSync(path)) fs.mkdirSync(path);
+    });
+
     for (const file in files) {
         const path = locate(file);
         const content = files[file];
