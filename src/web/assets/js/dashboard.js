@@ -1,9 +1,15 @@
-let output, socket, status, terminal;
+let output,
+    socket,
+    status,
+    applyAndRestartBtn,
+    terminal;
 
 async function init() {
     output = document.querySelector('.terminal-output');
     status = document.querySelector('#status');
     terminal = document.querySelector('.terminal');
+    applyAndRestartBtn = document.querySelector('#apply-restart');
+
     const token = await getToken();
 
     document.querySelector('#user').innerText = USER;
@@ -27,7 +33,7 @@ async function init() {
 
 async function loadProps() {
     const container = document.getElementById('props');
-    const { props } = (await call('props'));
+    const { props } = await call('props');
 
     const elements = [];
 
@@ -38,7 +44,7 @@ async function loadProps() {
             elements.push({
                 type: 0,
                 element: `
-                <div class="field">
+                <div class="field" data-prop="${key.replace(/\s/g, '-').toLowerCase()}">
                     <label class="label">${key}</label>
                     <div class="control">
                         <input class="input" type="text" value="${value}">
@@ -51,7 +57,7 @@ async function loadProps() {
             elements.push({
                 type: 1,
                 element: `
-                <div class="field">
+                <div class="field" data-prop="${key.replace(/\s/g, '-').toLowerCase()}">
                     <label class="label">${key}</label>
                     <div class="control">
                         <input class="input" type="number" value="${value}">
@@ -63,7 +69,7 @@ async function loadProps() {
             elements.push({
                 type: 2,
                 element: `
-                <div class="field">
+                <div class="field" data-prop="${key.replace(/\s/g, '-').toLowerCase()}">
                     <div class="control">
                         <label class="checkbox">
                             <input type="checkbox" ${value ? 'checked' : ''}>
@@ -93,9 +99,11 @@ function changeStatus(message) {
     if(message === 'Stopped' || message === 'Stopping...') {
         terminal.style.pointerEvents = 'none';
         terminal.style.opacity = '.6';
+        applyAndRestartBtn.style.display = 'none';
     } else {
         terminal.style.pointerEvents = 'all';
         terminal.style.opacity = '1';
+        applyAndRestartBtn.style.display = 'initial';
     }
 }
 
