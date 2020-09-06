@@ -18,7 +18,9 @@ async function get(url, options, token = null) {
     return await (await fetch(uri, _options)).json();
 }
 
-if (!isSecure) console.warn('Insecure connection detected!');
+async function call(endpoint) {
+    return await get('/' + endpoint, null, await getToken());
+}
 
 async function getToken() {
     const bearer = JSON.parse(localStorage.getItem('bearerToken'));
@@ -56,7 +58,22 @@ async function getToken() {
     return bearer.data;
 }
 
+async function getSocket() {
+    const token = await getToken();
+    const socket = io(URI);
+    socket.on('authenticated', () => console.log('Connection established with server socket'))
+    socket.on('unauthorized', clearAuthentication);
+
+    socket.on('connect', () => {
+        socket.emit('authentication', { token });
+    });
+
+    return socket;
+}
+
 function clearAuthentication() {
     localStorage.clear();
     window.location.href = URI + '/login';
 }
+
+if (!isSecure) console.warn('Insecure connection detected!');

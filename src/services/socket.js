@@ -1,10 +1,11 @@
 const jwt = require('jsonwebtoken');
-const { auth } = require('../../data/options.json');
+const auth = require('../../data/auth.json');
 const time = require('../util/time');
 const socketAuth = require('socketio-auth');
 
 module.exports = function (socket, server) {
     const users = {};
+    const all = socket.sockets;
 
     socketAuth(socket, {
         authenticate(socket, data, callback) {
@@ -22,7 +23,9 @@ module.exports = function (socket, server) {
         }
     });
 
-    const all = socket.sockets;
+    dl.register('start', () => all.emit('download-status', 'Downloading...'));
+    dl.register('end', () => all.emit('download-status', 'Downloaded'));
+    dl.register('error', ({ error }) => all.emit('download-status', error.message))
 
     const statusCallback = message => {
         all.emit('status', message);

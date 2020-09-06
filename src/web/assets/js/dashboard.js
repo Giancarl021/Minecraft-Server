@@ -10,22 +10,13 @@ async function init() {
     terminal = document.querySelector('.terminal');
     applyAndRestartBtn = document.querySelector('#apply-restart');
 
-    const token = await getToken();
-
     document.querySelector('#user').innerText = USER;
 
-    socket = io(URI);
+    socket = await getSocket();
 
     socket.on('out', receive);
     socket.on('command', commandReceived);
     socket.on('status', changeStatus);
-
-    socket.on('authenticated', () => console.log('Connection established with server socket'))
-    socket.on('unauthorized', clearAuthentication);
-
-    socket.on('connect', () => {
-        socket.emit('authentication', { token });
-    });
 
     changeStatus((await call('status')).status);
     loadProps();
@@ -133,10 +124,6 @@ function sendCommand(element, { key }) {
     const { value } = element;
     send(value);
     element.value = '';
-}
-
-async function call(endpoint) {
-    return await get('/' + endpoint, null, await getToken());
 }
 
 function sanitize(html) {

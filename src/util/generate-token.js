@@ -1,4 +1,4 @@
-const { auth } = require('../../data/options.json');
+const auth = require('../../data/auth.json');
 const { uid } = require('rand-token');
 const jwt = require('jsonwebtoken');
 

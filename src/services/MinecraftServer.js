@@ -1,38 +1,51 @@
 const locate = require('../util/locate');
-const { server } = require('../../data/options.json');
+const loadJSON = require('../util/loadJson');
 const cp = require('child_process');
 const fs = require('fs');
 const path = require('path');
 
 module.exports = class MinecraftServer {
     constructor() {
-        this._path = locate(server.location);
+        this._server = loadJSON('data/server.json');
+        this._path = locate(this._server.location);
         this._jar = null;
-        this._queue = [];
+        this._disabled = fs.existsSync(this._path);
         this._messageCallback = () => {};
         this._statusCallback = () => {};
     }
 
     start() {
+        if (this._jar || this.status() === 'Disabled') return;
         this._statusCallback('Starting...');
-        if(this._jar) return;
-        this._jar = cp.spawn('java', ['-jar', `-Xmx${server.ramSize}`, `-Xms${server.ramSize}`, this._path, 'nogui'], {
+        this._jar = cp.spawn('java', ['-jar', `-Xmx${this._server.ramSize}`, `-Xms${this._server.ramSize}`, this._path, 'nogui'], {
             cwd: path.basename(path.dirname(this._path)),
         });
 
         this._jar.stdout.on('data', this._messageCallback);
-
-        this._execQueue();
         this._statusCallback('Running');
     }
 
     status() {
-        return this._jar ? 'Running' : 'Stopped';
+        return this._disabled ? 'Disabled' :
+            (
+                fs.existsSync(this._path) ?
+                (this._jar ? 'Running' : 'Stopped') :
+                'Disabled'
+            );
+    }
+
+    async disable() {
+        if(this.status() === 'Running') await this.stop();
+        this._disabled = true;
+    }
+
+    enable() {
+        this._disabled = false;
     }
 
     async stop() {
+        if (!this._jar) return;
         this._statusCallback('Stopping...');
-        if(!this._jar) return;
         this.exec('stop');
         await new Promise((resolve, reject) => {
             try {
@@ -45,14 +58,14 @@ module.exports = class MinecraftServer {
             }
         });
         this._jar = null;
+        this._server = loadJSON('data/server.json');
         this._statusCallback('Stopped');
     }
 
     exec(command) {
-        if(!this._jar) {
-            this._queue.push(command);
-            return;
-        }
+        const status = this.status();
+        if(status === 'Disabled' || status === 'Stopped') return;
+
         this._jar.stdin.write(command + '\n');
     }
 
@@ -61,6 +74,7 @@ module.exports = class MinecraftServer {
     }
 
     properties() {
+        if(this.status() === 'Disabled') return {};
         const properties = fs.readFileSync(locate('bin/server.properties'), 'utf8');
 
         const arr = properties
@@ -68,29 +82,23 @@ module.exports = class MinecraftServer {
             .map(e => e.trim())
             .filter(e => !e.startsWith('#'))
             .map(e => e.split('='));
-    
+
         const props = {};
-    
+
         for (const [key, value] of arr) {
             const val = isNaN(Number(value)) ?
                 (value === 'true' || value === 'false' ?
                     (value === 'false' ? false : true) :
                     value) :
                 Number(value);
-    
+
             props[key] = val;
         }
-    
+
         return props;
     }
 
     onStatusUpdate(callback) {
         this._statusCallback = callback;
-    }
-
-    async _execQueue() {
-        for (const item of this._queue) {
-            await this.exec(item);
-        }
     }
 }

@@ -3,7 +3,7 @@ const locate = require('../util/locate');
 const files = require('./files');
 
 module.exports = function () {
-    const dirs = ['bin', 'data'];
+    const dirs = ['bin', 'data', 'temp'];
 
     dirs.forEach(dir => {
         const path = locate(dir);
