@@ -1,13 +1,12 @@
+const bcrypt = require('bcrypt');
+
+const admin = {
+    username: process.env.ADMIN_USERNAME || 'admin',
+    password: bcrypt.hashSync(process.env.ADMIN_PASSWORD || 'changeme', Math.floor(Math.random() * 30))
+}
+
 module.exports = {
     async seed(knex) {
-        await knex('user').insert([{
-            username: 'admin',
-            password: '$2b$10$DnaYezPbnA.i5eUsobGiOOQbIx/YEB8k8S6bTaoh3uEO1lasz.r86',
-            roleId: 0
-        }, {
-            username: 'jão',
-            password: '$2b$10$DnaYezPbnA.i5eUsobGiOOQbIx/YEB8k8S6bTaoh3uEO1lasz.r86',
-            roleId: 0
-        }]);
+        await knex('user').insert([admin]);
     }
 }
