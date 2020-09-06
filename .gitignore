@@ -1,6 +1,5 @@
 bin/
-!bin/server.jar
-data/options.json
+data/
 *.sqlite
 
 # Logs

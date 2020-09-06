@@ -1,5 +1,5 @@
 const isSecure = location.protocol === 'https:';
-const URI = window.location.protocol + '//' + window.location.host
+const URI = window.location.protocol + '//' + window.location.host + (window.location.port ? ':' + window.location.port : '');
 let USER = localStorage.getItem('user');
 
 async function get(url, options, token = null) {
