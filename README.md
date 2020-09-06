@@ -1,4 +1,4 @@
-# Minecraft-Server-1.16.1
+# Minecraft-Server
 
 Dashboard for Minecraft Server
 
