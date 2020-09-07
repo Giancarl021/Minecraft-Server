@@ -11,7 +11,9 @@ module.exports = function (path, data, append = false) {
                 ...loadJson(_path),
                 ...data
             } :
-            data
+            data,
+            null,
+            4
         )
     );
 }

@@ -24,7 +24,9 @@ module.exports = function (socket, server) {
     });
 
     dl.register('start', () => all.emit('download-status', 'Downloading...'));
-    dl.register('end', () => all.emit('download-status', 'Downloaded'));
+    dl.register('downloaded', () => all.emit('download-status', 'Downloaded'));
+    dl.register('configuring', () => all.emit('download-status', 'Configuring...'));
+    dl.register('configured', () => all.emit('download-status', 'Configured'));
     dl.register('error', ({ error }) => all.emit('download-status', error.message))
 
     const statusCallback = message => {

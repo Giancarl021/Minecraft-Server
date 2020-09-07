@@ -11,19 +11,21 @@ module.exports = function () {
     });
 
     for (const file in files) {
+        const isJson = file.endsWith('.json');
         const path = locate(file);
         const content = files[file];
-        const _content = _parseFunctions(content);
+        const _content = isJson ? _parseFunctions(content) : content;
 
         if (!fs.existsSync(path)) {
-            fs.writeFileSync(path, JSON.stringify(_content, null, 4));
+            fs.writeFileSync(path, isJson ? JSON.stringify(_content, null, 4) : _content);
             return;
         }
 
-        const fileContent = JSON.parse(fs.readFileSync(path, 'utf8'));
-        fillObject(fileContent, _content);
+        const fileContent = isJson ? JSON.parse(fs.readFileSync(path, 'utf8')) : fs.readFileSync(path, 'utf8');
 
-        fs.writeFileSync(path, JSON.stringify(fileContent, null, 4));
+        isJson && fillObject(fileContent, _content);
+
+        fs.writeFileSync(path, isJson ? JSON.stringify(fileContent, null, 4): fileContent);
     }
 }
 

@@ -9,7 +9,7 @@ module.exports = class MinecraftServer {
         this._server = loadJSON('data/server.json');
         this._path = locate(this._server.location);
         this._jar = null;
-        this._disabled = fs.existsSync(this._path);
+        this._disabled = !fs.existsSync(this._path);
         this._messageCallback = () => {};
         this._statusCallback = () => {};
     }
@@ -74,8 +74,9 @@ module.exports = class MinecraftServer {
     }
 
     properties() {
-        if(this.status() === 'Disabled') return {};
-        const properties = fs.readFileSync(locate('bin/server.properties'), 'utf8');
+        const path = locate('bin/server.properties');
+        if(this.status() === 'Disabled' || !fs.existsSync(path)) return {};
+        const properties = fs.readFileSync(path, 'utf8');
 
         const arr = properties
             .split(/\r?\n/g)
@@ -100,5 +101,23 @@ module.exports = class MinecraftServer {
 
     onStatusUpdate(callback) {
         this._statusCallback = callback;
+    }
+
+    deleteMap() {
+        fs.rmdirSync(locate('bin/world'), { recursive: true });
+    }
+
+    changeMap(zipFile) {
+        this.deleteMap();
+        // Code
+    }
+
+    deleteData() {
+        const bin = locate('bin');
+        const bind = path => bin + '/' + path;
+        fs.rmdirSync(bind('logs'), { recursive: true });
+        fs.readdirSync(bin)
+            .filter(f => fs.lstatSync(bind(f)).isFile() && !['server.jar', 'eula.txt'].includes(f))
+            .forEach(f => fs.unlinkSync(bind(f)));
     }
 }

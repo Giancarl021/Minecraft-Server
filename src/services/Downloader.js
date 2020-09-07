@@ -1,39 +1,39 @@
 const locate = require('../util/locate');
+const writeJson = require('../util/writeJson');
 const https = require('https');
 const fs = require('fs');
 
 module.exports = function () {
 
-    const _downloading = [];
+    let _downloading = false;
     const callbacks = {};
 
     function register(event, callback) {
         callbacks[event] = callback;
     }
 
-    async function download(uri, destination) {
+    async function download(uri, destination, version) {
         const path = locate(destination);
 
-        if(_downloading.includes(path)) return;
+        if(_downloading) return;
 
         const file = fs.createWriteStream(path);
         await new Promise((resolve, reject) => {
-            _downloading.push(path);
+            _downloading = true;
 
             if(callbacks.start) callbacks.start({ uri, destination });
             https.get(uri, response => {
                 response.pipe(file);
                 file.on('finish', () => {
-                    _downloading.splice(_downloading.indexOf(path), 1);
+                    _downloading = false;
                     
                     file.close();
-                    if(callbacks.end) callbacks.end({ uri, destination });
+                    if(callbacks.downloaded) callbacks.downloaded({ uri, destination });
                     resolve();
                 });
             })
             .on('error', err => {
-                _downloading.splice(_downloading.indexOf(path), 1);
-
+                _downloading = false;
                 fs.unlink(dest);
                 if(callbacks.error) {
                     callbacks.error({ uri, destination, error: err });
@@ -43,6 +43,13 @@ module.exports = function () {
                 }
             });
         });
+
+        if(callbacks.configuring) callbacks.configuring();
+
+        fs.renameSync(path, locate('bin/server.jar'));
+        writeJson('data/server.json', { version }, true);
+
+        if(callbacks.configured) callbacks.configured();
     }
 
     return {

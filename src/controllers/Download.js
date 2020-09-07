@@ -1,6 +1,4 @@
 const locate = require('../util/locate');
-const fs = require('fs');
-const writeJSON = require('../util/writeJson');
 const { promisify } = require('util');
 const mcversions = require('mcversions');
 const getVersion = promisify(mcversions.getVersion).bind(mcversions);
@@ -25,11 +23,11 @@ module.exports = async function (request, response) {
     await ms.disable();
 
     if(!preserveFiles) {
-        
+        ms.deleteData();
     }
 
     if(!preserveMap) {
-        
+        ms.deleteMap();
     }
 
     response.json({
@@ -38,8 +36,7 @@ module.exports = async function (request, response) {
 
     const temp = locate('temp/server.jar');
 
-    await dl.download(data.url.server, temp);
-    fs.renameSync(temp, locate('bin/server.jar'));
-    writeJSON('data/server.json', { version }, true);
+    await dl.download(data.url.server, temp, version);
+
     ms.enable();
 }

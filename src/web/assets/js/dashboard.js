@@ -26,6 +26,15 @@ async function loadProps() {
     const container = document.getElementById('props');
     const { props } = await call('props');
 
+    if(!Object.keys(props).length) {
+        container.innerHTML = `
+        <h1 class="subtitle has-text-centered">
+            Properties file could not be loaded. If you have not started the server at least one time, start and reload this page.
+        </h1>
+        `;
+        return;
+    }
+
     const elements = [];
 
     for (const key in props) {

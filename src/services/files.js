@@ -11,5 +11,6 @@ module.exports = {
         secret() {
             return randomBytes(Math.floor((Math.random() * 24) + 16)).toString('hex');
         }
-    }
+    },
+    'bin/eula.txt': 'eula=true'
 };
