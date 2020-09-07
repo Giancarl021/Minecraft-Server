@@ -6,13 +6,15 @@ async function init() {
     status = document.getElementById('status');
     close = document.getElementById('close');
     eula = document.getElementById('eula');
-    const socket = await getSocket();
-
     document.querySelector('#user').innerText = USER;
 
-    socket.on('download-status', changeStatus)
     const { versions } = await call('versions', await getToken());
     setVersions(versions);
+}
+
+async function configureSocket() {
+    const socket = await getSocket();
+    socket.on('download-status', changeStatus)
 }
 
 function changeStatus(message) {
@@ -60,4 +62,5 @@ function isLoading() {
     button.setAttribute('disabled', true);
 }
 
+configureSocket();
 document.addEventListener('DOMContentLoaded', init);

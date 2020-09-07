@@ -12,14 +12,15 @@ async function init() {
 
     document.querySelector('#user').innerText = USER;
 
-    socket = await getSocket();
+    changeStatus((await call('status')).status);
+    loadProps();
+}
 
+async function configureSocket() {
+    socket = await getSocket();
     socket.on('out', receive);
     socket.on('command', commandReceived);
     socket.on('status', changeStatus);
-
-    changeStatus((await call('status')).status);
-    loadProps();
 }
 
 async function loadProps() {
@@ -141,4 +142,5 @@ function sanitize(html) {
     return p.innerHTML;
 }
 
+configureSocket();
 document.addEventListener('DOMContentLoaded', init);
