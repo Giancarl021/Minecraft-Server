@@ -45,14 +45,10 @@ async function login() {
     function getValue(selector) {
         return document.querySelector(selector).value;
     }
+}
 
-    function invalidResponse(message) {
-        Swal.fire({
-            icon: 'error',
-            title: 'Authentication Error',
-            text: message
-        });
-    }
+function invalidResponse(error) {
+    fireError('Authentication Error', error);
 }
 
 function init() {

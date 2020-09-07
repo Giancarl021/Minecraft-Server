@@ -35,7 +35,7 @@ module.exports = class MinecraftServer {
     }
 
     async disable() {
-        if(this.status() === 'Running') await this.stop();
+        if (this.status() === 'Running') await this.stop();
         this._disabled = true;
     }
 
@@ -64,7 +64,7 @@ module.exports = class MinecraftServer {
 
     exec(command) {
         const status = this.status();
-        if(status === 'Disabled' || status === 'Stopped') return;
+        if (status === 'Disabled' || status === 'Stopped') return;
 
         this._jar.stdin.write(command + '\n');
     }
@@ -75,23 +75,26 @@ module.exports = class MinecraftServer {
 
     properties() {
         const path = locate('bin/server.properties');
-        if(this.status() === 'Disabled' || !fs.existsSync(path)) return {};
+        if (this.status() === 'Disabled' || !fs.existsSync(path)) return {};
         const properties = fs.readFileSync(path, 'utf8');
 
         const arr = properties
             .split(/\r?\n/g)
             .map(e => e.trim())
-            .filter(e => !e.startsWith('#'))
+            .filter(e => e && !e.startsWith('#'))
             .map(e => e.split('='));
 
         const props = {};
 
         for (const [key, value] of arr) {
-            const val = isNaN(Number(value)) ?
-                (value === 'true' || value === 'false' ?
-                    (value === 'false' ? false : true) :
-                    value) :
-                Number(value);
+            const val = value === '' ? '' :
+                (
+                    isNaN(Number(value)) ?
+                    (value === 'true' || value === 'false' ?
+                        (value === 'false' ? false : true) :
+                        value) :
+                    Number(value)
+                );
 
             props[key] = val;
         }
@@ -99,12 +102,24 @@ module.exports = class MinecraftServer {
         return props;
     }
 
+    setProperties(props) {
+        const path = locate('bin/server.properties');
+        const r = [];
+        for (const key in props) {
+            r.push(`${key}=${props[key].toString()}`);
+        }
+
+        fs.writeFileSync(path, r.join('\n'));
+    }
+
     onStatusUpdate(callback) {
         this._statusCallback = callback;
     }
 
     deleteMap() {
-        fs.rmdirSync(locate('bin/world'), { recursive: true });
+        fs.rmdirSync(locate('bin/world'), {
+            recursive: true
+        });
     }
 
     changeMap(zipFile) {
@@ -115,7 +130,9 @@ module.exports = class MinecraftServer {
     deleteData() {
         const bin = locate('bin');
         const bind = path => bin + '/' + path;
-        fs.rmdirSync(bind('logs'), { recursive: true });
+        fs.rmdirSync(bind('logs'), {
+            recursive: true
+        });
         fs.readdirSync(bin)
             .filter(f => fs.lstatSync(bind(f)).isFile() && !['server.jar', 'eula.txt'].includes(f))
             .forEach(f => fs.unlinkSync(bind(f)));

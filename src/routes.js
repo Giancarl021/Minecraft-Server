@@ -31,7 +31,8 @@ routes.get('/start', Auth, Start);
 routes.get('/stop', Auth, Stop);
 routes.get('/restart', Auth, Restart);
 routes.get('/status', Auth, Status);
-routes.get('/props', Auth, Props);
+routes.get('/props', Auth, Props.Get);
+routes.post('/props', Auth, Props.Post);
 routes.get('/versions', Auth, Versions);
 routes.post('/download', Auth, Download);
 

@@ -76,4 +76,12 @@ function clearAuthentication() {
     window.location.href = URI + '/login';
 }
 
+function fireError(title, message) {
+    Swal.fire({
+        icon: 'error',
+        title,
+        text: message
+    });
+}
+
 if (!isSecure) console.warn('Insecure connection detected!');

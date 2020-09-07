@@ -8,7 +8,9 @@ async function init() {
     eula = document.getElementById('eula');
     document.querySelector('#user').innerText = USER;
 
-    const { versions } = await call('versions', await getToken());
+    const {
+        versions
+    } = await call('versions', await getToken());
     setVersions(versions);
 }
 
@@ -18,7 +20,7 @@ async function configureSocket() {
 }
 
 function changeStatus(message) {
-    if(message === 'Configured') {
+    if (message === 'Configured') {
         window.location.href = URI;
     }
     isLoading();
@@ -39,19 +41,23 @@ function setVersions(versions) {
 }
 
 function selectVersion(version) {
-    if(!version || version === 'null') return;
+    if (!version || version === 'null') return;
 
     button.style.display = 'initial';
 }
 
 async function download() {
     isLoading();
-    await get('/download', { 
+    const res = await get('/download', {
         method: 'POST',
         body: {
             version: select.value
         }
     }, await getToken());
+
+    if(res.error) {
+        fireError('Request Error', res.error);
+    }
 }
 
 function isLoading() {
