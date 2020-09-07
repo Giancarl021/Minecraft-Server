@@ -1,9 +1,11 @@
-let status, select, button;
+let status, select, button, close, eula;
 
 async function init() {
     select = document.querySelector('#version > select');
     button = document.querySelector('#download-btn');
     status = document.getElementById('status');
+    close = document.getElementById('close');
+    eula = document.getElementById('eula');
     const socket = await getSocket();
 
     document.querySelector('#user').innerText = USER;
@@ -14,6 +16,9 @@ async function init() {
 }
 
 function changeStatus(message) {
+    if(message === 'Configured') {
+        window.location.href = URI;
+    }
     isLoading();
     status.innerText = message;
 }
@@ -48,6 +53,8 @@ async function download() {
 }
 
 function isLoading() {
+    close.removeAttribute('style');
+    eula.style.display = 'none';
     button.classList.add('is-loading');
     select.setAttribute('disabled', true);
     button.setAttribute('disabled', true);

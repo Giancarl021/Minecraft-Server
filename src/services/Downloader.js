@@ -52,8 +52,13 @@ module.exports = function () {
         if(callbacks.configured) callbacks.configured();
     }
 
+    function isDownloading() {
+        return _downloading;
+    }
+
     return {
         register,
-        download
+        download,
+        isDownloading
     }
 }

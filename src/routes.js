@@ -34,12 +34,11 @@ routes.get('/status', Auth, Status);
 routes.get('/props', Auth, Props);
 routes.get('/versions', Auth, Versions);
 routes.post('/download', Auth, Download);
+
 // Dashboard
 routes.get('/', Index);
-// routes.get('/startup', Startup);
-routes.get('/startup', Static('startup.html')); // DEBUG
+routes.get('/startup', Startup);
 routes.get('/login', Static('login.html'));
-// routes.get('/properties', Static('properties.html'));
-// routes.get('/users', Static('users.html'));
+routes.get('/config', Static('config.html'));
 
 module.exports = routes;
