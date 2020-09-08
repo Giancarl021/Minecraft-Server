@@ -45,8 +45,9 @@ routes.post('/props', Auth, Props.Post);
 
 // Dashboard
 routes.get('/', Wait, Static('dashboard.html'));
-routes.get('/startup', Wait, Startup);
 routes.get('/login', Wait, Static('login.html'));
 routes.get('/config', Wait, Static('config.html'));
+
+routes.get('/startup', Wait, Startup);
 
 module.exports = routes;
