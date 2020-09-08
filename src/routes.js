@@ -31,15 +31,17 @@ routes.post('/reset', Auth, ResetPassword);
 // Server
 routes.get('/start', Auth, Start);
 routes.get('/stop', Auth, Stop);
-routes.get('/ram', Auth, Ram.Get);
-routes.post('/ram', Auth, Ram.Post);
 routes.get('/restart', Auth, Restart);
 routes.get('/status', Auth, Status);
-routes.get('/props', Auth, Props.Get);
-routes.post('/props', Auth, Props.Post);
+routes.post('/download', Auth, Download);
 routes.get('/version', Auth, Version);
 routes.get('/versions', Auth, Versions);
-routes.post('/download', Auth, Download);
+
+routes.get('/ram', Auth, Ram.Get);
+routes.post('/ram', Auth, Ram.Post);
+
+routes.get('/props', Auth, Props.Get);
+routes.post('/props', Auth, Props.Post);
 
 // Dashboard
 routes.get('/', Wait, Static('dashboard.html'));
