@@ -49,10 +49,41 @@
         </div>
     </section>
     <section class="section">
-        <h1 class="title">Usuários</h1>
+        <h1 class="title">Users</h1>
     </section>
     <section class="section">
-        <h1 class="title">Versão</h1>
+        <h1 class="title">Allocated RAM</h1>
+        <article class="message is-info">
+            <div class="message-header">
+                <p>Effective change</p>
+            </div>
+            <div class="message-body">
+                To effectively change the allocated RAM, you need to restart the server if it is running.
+            </div>
+        </article>
+        <div class="field">
+            <label class="label">Ram</label>
+            <div class="control">
+                <input class="input" type="number" id="ram" min="0" max="1024">
+            </div>
+        </div>
+        <div class="control">
+            <label class="radio">
+                <input type="radio" name="ram" id="ram-m">
+                Megabytes
+            </label>
+            <label class="radio">
+                <input type="radio" name="ram" id="ram-g">
+                Gigabytes
+            </label>
+        </div>
+        <div class="control is-full is-pulled-right mt-3 mb-6" id="buttons">
+            <button class="button is-warning" onclick="getRam()">Reset</button>
+            <button class="button is-primary" onclick="setRam()">Apply</button>
+        </div>
+    </section>
+    <section class="section">
+        <h1 class="title">Version</h1>
         <article class="message is-danger" id="close" style="display: none">
             <div class="message-header">
                 <p>Do not close this page</p>
@@ -73,11 +104,33 @@
                     <i class="fas fa-code-branch"></i>
                 </div>
             </div>
-            <div class="control is-full mt-3">
-                <button id="download-btn" style="display: none" class="button is-link" onclick="download(this)">Set new
-                    version</button>
+            <div class="field">
+                <div class="control">
+                    <label class="checkbox">
+                        <input type="checkbox" id="preserve-map" checked>
+                        Preserve Map
+                    </label>
+                </div>
+                <div>
+                    <div class="field">
+                        <div class="control">
+                            <label class="checkbox">
+                                <input id="preserve-data" type="checkbox" checked>
+                                Preserve Data
+                            </label>
+                        </div>
+                        <div>
+                            <div class="control is-full mt-3">
+                                <button id="download-btn" style="display: none" class="button is-link"
+                                    onclick="download(this)">Set new
+                                    version</button>
+                            </div>
+                            <h1 class="title has-text-centered mt-6" id="status"></h1>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <h1 class="title has-text-centered mt-6" id="status"></h1>
+        </div>
     </section>
 </body>
 

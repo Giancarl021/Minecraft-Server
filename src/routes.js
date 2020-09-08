@@ -9,6 +9,7 @@ const Props = require('./controllers/Props');
 const Startup = require('./controllers/Startup');
 const Versions = require('./controllers/Versions');
 const Version = require('./controllers/Version');
+const Ram = require('./controllers/Ram');
 const Download = require('./controllers/Download');
 
 const Authorize = require('./controllers/Authorize');
@@ -30,6 +31,8 @@ routes.post('/reset', Auth, ResetPassword);
 // Server
 routes.get('/start', Auth, Start);
 routes.get('/stop', Auth, Stop);
+routes.get('/ram', Auth, Ram.Get);
+routes.post('/ram', Auth, Ram.Post);
 routes.get('/restart', Auth, Restart);
 routes.get('/status', Auth, Status);
 routes.get('/props', Auth, Props.Get);

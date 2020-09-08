@@ -1,18 +1,19 @@
-let status, select, button, currentVersion, close;
+let status, select, button, currentVersion, close, preserveMap, preserveData, ram;
 
 async function init() {
     select = document.querySelector('#version > select');
     button = document.querySelector('#download-btn');
     status = document.getElementById('status');
     close = document.getElementById('close');
+    preserveMap = document.getElementById('preserve-map');
+    preserveData = document.getElementById('preserve-data');
 
     document.querySelector('#user').innerText = USER;
 
-    const token = await getToken();
-
-    const { version } = await call('version', token);
+    getRam();
+    const { version } = await call('version');
     currentVersion = version;
-    const { versions } = await call('versions', token);
+    const { versions } = await call('versions');
     setVersions(versions);
 }
 
@@ -27,6 +28,30 @@ function changeStatus(message) {
     }
     isLoading();
     status.innerText = message;
+}
+
+async function getRam() {
+    const { size, format } = await call('ram');
+    document.getElementById('ram-' + format.toLowerCase()).checked = true;
+    document.getElementById('ram').value = size;
+}
+
+async function setRam() {
+    const format = [ document.getElementById('ram-g'), document.getElementById('ram-m') ]
+        .filter(e => e.checked)
+        .shift()
+        .id
+        .replace('ram-', '')
+        .toUpperCase();
+    const size = Number(document.getElementById('ram').value);
+
+    await get('/ram', {
+        method: 'POST',
+        body: {
+            size,
+            format
+        }
+    }, await getToken());
 }
 
 function setVersions(versions) {
@@ -52,7 +77,9 @@ async function download() {
     const res = await get('/download', {
         method: 'POST',
         body: {
-            version: select.value
+            version: select.value,
+            preserveFiles: preserveData.checked,
+            preserveMap: preserveMap.checked
         }
     }, await getToken());
 

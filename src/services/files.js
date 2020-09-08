@@ -3,7 +3,7 @@ const { randomBytes } = require('crypto');
 module.exports = {
     'data/server.json': {
         location: 'bin/server.jar',
-        ramSize: '2G',
+        ramSize: '512M',
         version: ''
     },
     'data/auth.json': {

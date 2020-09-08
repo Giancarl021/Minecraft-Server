@@ -1,6 +1,6 @@
 # TODO
 
-- [ ] Opções de preservação de dados e mapa na troca de versões
+- [X] Opções de preservação de dados e mapa na troca de versões
 - [ ] Gerenciamento de Usuários
 - [ ] Controle de RAM alocada pelo servidor
 - [ ] Upload/Download de Mapa
