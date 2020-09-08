@@ -11,6 +11,7 @@ const Versions = require('./controllers/Versions');
 const Version = require('./controllers/Version');
 const Ram = require('./controllers/Ram');
 const Download = require('./controllers/Download');
+const Map = require('./controllers/Map');
 
 const Authorize = require('./controllers/Authorize');
 const Register = require('./controllers/Register');
@@ -36,6 +37,8 @@ routes.get('/status', Auth, Status);
 routes.post('/download', Auth, Download);
 routes.get('/version', Auth, Version);
 routes.get('/versions', Auth, Versions);
+routes.get('/map', Auth, Map.Get);
+routes.post('/map', Auth, Map.Post);
 
 routes.get('/ram', Auth, Ram.Get);
 routes.post('/ram', Auth, Ram.Post);

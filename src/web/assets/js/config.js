@@ -11,15 +11,38 @@ async function init() {
     document.querySelector('#user').innerText = USER;
 
     getRam();
-    const { version } = await call('version');
+    const {
+        version
+    } = await call('version');
     currentVersion = version;
-    const { versions } = await call('versions');
+    const {
+        versions
+    } = await call('versions');
     setVersions(versions);
 }
 
 async function configureSocket() {
     const socket = await getSocket();
     socket.on('download-status', changeStatus);
+}
+
+async function downloadMap() {
+    const blob = await get('/map', {
+        file: true
+    }, await getToken());
+
+    _download(blob, 'map.zip');
+}
+
+function _download(blob, filename) {
+    const a = document.createElement('a');
+    a.style.display = 'none';
+    document.body.appendChild(a);
+    url = window.URL.createObjectURL(blob);
+    a.href = url;
+    a.download = filename;
+    a.click();
+    window.URL.revokeObjectURL(url);
 }
 
 function changeStatus(message) {
@@ -37,7 +60,7 @@ async function getRam() {
 }
 
 async function setRam() {
-    const format = [ document.getElementById('ram-g'), document.getElementById('ram-m') ]
+    const format = [document.getElementById('ram-g'), document.getElementById('ram-m')]
         .filter(e => e.checked)
         .shift()
         .id
@@ -83,7 +106,7 @@ async function download() {
         }
     }, await getToken());
 
-    if(res.error) {
+    if (res.error) {
         fireError('Request Error', res.error);
     }
 }

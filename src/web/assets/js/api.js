@@ -10,12 +10,15 @@ async function get(url, options, token = null) {
     if(token) _headers.authorization = 'Bearer ' + token;
 
     const _options = {
+        file: false,
         ...Options,
         headers: new Headers(_headers),
     };
     if (Options.body) _options.body = JSON.stringify(options.body);
 
-    return await (await fetch(uri, _options)).json();
+    const response = await fetch(uri, _options);
+
+    return await (_options.file ? response.blob() : response.json());
 }
 
 async function call(endpoint) {
