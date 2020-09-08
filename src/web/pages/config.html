@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="shortcut icon" href="assets/favicon.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- SOCKET -->
+    <script src="socket.io/socket.io.js"></script>
+    <!-- LIBS -->
+    <link rel="stylesheet" href="assets/libs/bulma.css">
+    <script src="assets/libs/font-awesome.js"></script>
+    <!-- SELF -->
+    <link rel="stylesheet" href="assets/css/version.css">
+    <script src="assets/js/api.js"></script>
+    <script src="assets/js/config.js"></script>
+    <title>Configuration</title>
+</head>
+
+<body>
+    <section class="section level">
+        <div class="level-item-left">
+            <h1 class="title">
+                <i class="fas fa-cube"></i>
+                Giancarl021/Mine-Server
+            </h1>
+            <p class="subtitle">
+                A complete Minecraft server with dashboard for you!
+            </p>
+        </div>
+        <div class="level-item-right has-text-centered">
+            <div class="container">
+                <p class="subtitle mb-0">
+                    <span id="user"></span>
+                    <span class="icon">
+                        <i class="fas fa-user"></i>
+                    </span>
+                </p>
+                <div class="level is-mobile">
+                    <a href="#" onclick="clearAuthentication()">Log Out</a>
+                    <a href="/">
+                        <span class="icon">
+                            <i class="fas fa-home"></i>
+                        </span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="section">
+        <h1 class="title">Usuários</h1>
+    </section>
+    <section class="section">
+        <h1 class="title">Versão</h1>
+        <article class="message is-danger" id="close" style="display: none">
+            <div class="message-header">
+                <p>Do not close this page</p>
+            </div>
+            <div class="message-body">
+                If you close this page you will not be able to see the progress of the download. After the download is
+                completed this page will reload automatically.
+            </div>
+        </article>
+        <div class="field container">
+            <div class="control has-icons-left">
+                <div class="select is-loading" id="version">
+                    <select disabled onchange="selectVersion(this.value)">
+
+                    </select>
+                </div>
+                <div class="icon is-small is-left">
+                    <i class="fas fa-code-branch"></i>
+                </div>
+            </div>
+            <div class="control is-full mt-3">
+                <button id="download-btn" style="display: none" class="button is-link" onclick="download(this)">Set new
+                    version</button>
+            </div>
+            <h1 class="title has-text-centered mt-6" id="status"></h1>
+    </section>
+</body>
+
+</html>

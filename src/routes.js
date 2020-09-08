@@ -6,9 +6,9 @@ const Stop = require('./controllers/Stop');
 const Restart = require('./controllers/Restart');
 const Status = require('./controllers/Status');
 const Props = require('./controllers/Props');
-const Index = require('./controllers/Index');
 const Startup = require('./controllers/Startup');
 const Versions = require('./controllers/Versions');
+const Version = require('./controllers/Version');
 const Download = require('./controllers/Download');
 
 const Authorize = require('./controllers/Authorize');
@@ -17,6 +17,7 @@ const ResetPassword = require('./controllers/ResetPassword');
 
 const Auth = require('./middlewares/Auth');
 const Refresh = require('./middlewares/Refresh');
+const Wait = require('./middlewares/Wait');
 
 const Static = require('./controllers/Static');
 
@@ -33,13 +34,14 @@ routes.get('/restart', Auth, Restart);
 routes.get('/status', Auth, Status);
 routes.get('/props', Auth, Props.Get);
 routes.post('/props', Auth, Props.Post);
+routes.get('/version', Auth, Version);
 routes.get('/versions', Auth, Versions);
 routes.post('/download', Auth, Download);
 
 // Dashboard
-routes.get('/', Index);
-routes.get('/startup', Startup);
-routes.get('/login', Static('login.html'));
-routes.get('/config', Static('config.html'));
+routes.get('/', Wait, Static('dashboard.html'));
+routes.get('/startup', Wait, Startup);
+routes.get('/login', Wait, Static('login.html'));
+routes.get('/config', Wait, Static('config.html'));
 
 module.exports = routes;

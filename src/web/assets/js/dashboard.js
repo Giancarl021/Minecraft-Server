@@ -25,9 +25,7 @@ async function configureSocket() {
 
 async function loadProps() {
     const container = document.getElementById('props');
-    const {
-        props
-    } = await call('props');
+    const { props } = await call('props');
 
     if (!Object.keys(props).length) {
         container.innerHTML = `
