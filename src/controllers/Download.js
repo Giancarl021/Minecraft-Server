@@ -1,6 +1,5 @@
 const locate = require('../util/locate');
-
-const getVersion = () => {};
+const mcversions = require('../services/minecraft-versions')
 
 module.exports = async function (request, response) {
     const { version, preserveMap, preserveFiles } = request.body;
@@ -11,9 +10,9 @@ module.exports = async function (request, response) {
         });
     }
 
-    const data = await getVersion(version);
+    const uri = await mcversions.getVersion(version);
 
-    if(!data || !data.url || !data.url.server) {
+    if(!uri) {
         return response.status(400).json({
             error: 'Invalid server version'
         });
@@ -35,7 +34,7 @@ module.exports = async function (request, response) {
 
     const temp = locate('temp/server.jar');
 
-    await dl.download(data.url.server, temp, version);
+    await dl.download(uri, temp, version);
 
     ms.enable();
 }
