@@ -1,11 +1,7 @@
-const { promisify } = require('util');
-const mcversions = require('mcversions');
-const getVersions = promisify(mcversions.getAllVersions).bind(mcversions);
+const mcversions = require('../services/minecraft-versions');
 
 module.exports = async function (_, response) {
-    const versions = (await getVersions())
-        .filter(version => version.url && version.url.server)
-        .map(version => version.id);
+    const versions = await mcversions.getVersions();
 
     return response.json({
         versions

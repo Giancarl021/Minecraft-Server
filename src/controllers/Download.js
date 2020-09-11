@@ -1,7 +1,6 @@
 const locate = require('../util/locate');
-const { promisify } = require('util');
-const mcversions = require('mcversions');
-const getVersion = promisify(mcversions.getVersion).bind(mcversions);
+
+const getVersion = () => {};
 
 module.exports = async function (request, response) {
     const { version, preserveMap, preserveFiles } = request.body;
