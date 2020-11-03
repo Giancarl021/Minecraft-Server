@@ -4,6 +4,11 @@ const fs = require('fs');
 
 module.exports = {
     async Get(_, response) {
+        if(ms.status() === 'Running') {
+            return response.status(400).json({
+                error: 'Cannot download the map when the server is running'
+            });
+        }
         const level = ms.properties()['level-name'];
 
         const regex = new RegExp(`.*?${level}`);
