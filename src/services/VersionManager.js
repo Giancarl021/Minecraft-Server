@@ -35,6 +35,8 @@ module.exports = function () {
                 .insert([ row ]);
         }
 
+        console.log('Database updated successfully');
+
         status = false;
     }
 
@@ -51,7 +53,7 @@ module.exports = function () {
     function _difference(base) {
         const baseIds = base.map(version => version.id);
 
-        return version => doesNotExists(version) || hasDifferentUri(version);
+        return version => !baseIds.includes(version.id);
 
         function doesNotExists(version) {
             return !baseIds.includes(version.id);
