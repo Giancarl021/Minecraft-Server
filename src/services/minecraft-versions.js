@@ -11,21 +11,18 @@ async function get(uri) {
 async function _getVersions() {
     if (cache.has()) return cache.get();
     const { versions: data } = await get(BASE_URL);
-    const versions = await Promise.all(
+    data.length = 15;
+    const versions = (await Promise.all(
         data
         .map(async version => {
-
             const { id, url } = version;
             const { downloads } = await get(url);
 
             const uri = downloads ? (downloads.server ? (downloads.server.url ? downloads.server.url : false) : false) : false;
-            
-            console.log(id, uri);
 
             return { id, uri };
         })
-        .filter(version => version.uri)
-    );
+    )).filter(version => version.uri);
 
     const dict = {};
 
@@ -40,7 +37,6 @@ async function _getVersions() {
 module.exports = {
     async getVersions() {
         const versions = await _getVersions();
-        console.log(versions);
         return Object.keys(versions);
     },
 
@@ -49,5 +45,3 @@ module.exports = {
         return versions[versionId];
     }
 }
-
-// { 'id': 'uri' }
