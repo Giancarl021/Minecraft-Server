@@ -1,7 +1,5 @@
-const mcversions = require('../services/minecraft-versions');
-
 module.exports = async function (_, response) {
-    const versions = await mcversions.getVersions();
+    const versions = await vm.list();
 
     return response.json({
         versions

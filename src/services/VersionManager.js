@@ -1,9 +1,11 @@
 const axios = require('axios').default;
 const connection = require('../database/connection');
+const createCache = require('../util/cache');
 const BASE_URL = 'https://launchermeta.mojang.com/mc/game/version_manifest.json';
 
 module.exports = function () {
     let status = false;
+    const cache = createCache('temp/version.lock', 3600);
 
     async function fetch() {
         status = true;
@@ -38,16 +40,30 @@ module.exports = function () {
         console.log('Database updated successfully');
 
         status = false;
+        cache.set(true);
     }
 
     async function get(versionName) {
+        needUpdate();
         return await connection('version')
             .where('id', versionName)
             .select('*');
     }
 
+    async function list() {
+        needUpdate();
+        return (
+            await connection('version')
+                .select('id')
+            ).map(version => version.id);
+    }
+
     function isFetching() {
         return status;
+    }
+
+    function needUpdate() {
+        if (!cache.has()) fetch();
     }
 
     function _difference(base) {
@@ -89,6 +105,7 @@ module.exports = function () {
     return {
         isFetching,
         fetch,
-        get
+        get,
+        list
     }
 }

@@ -19,7 +19,7 @@ module.exports = function (path, timeToLive = 3600) {
         }
 
         return true;
-    }   
+    }
 
     function get() {
         if(!has()) throw new Error('Cache does not exists');

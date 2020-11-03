@@ -1,5 +1,4 @@
 const locate = require('../util/locate');
-const mcversions = require('../services/minecraft-versions')
 
 module.exports = async function (request, response) {
     const { version, preserveMap, preserveFiles } = request.body;
@@ -10,7 +9,7 @@ module.exports = async function (request, response) {
         });
     }
 
-    const uri = await mcversions.getVersion(version);
+    const uri = await vm.get(version);
 
     if(!uri) {
         return response.status(400).json({
