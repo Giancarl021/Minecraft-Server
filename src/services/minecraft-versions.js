@@ -11,7 +11,6 @@ async function get(uri) {
 async function _getVersions() {
     if (cache.has()) return cache.get();
     const { versions: data } = await get(BASE_URL);
-    data.length = 15;
     const versions = (await Promise.all(
         data
         .map(async version => {

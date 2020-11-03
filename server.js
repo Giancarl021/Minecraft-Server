@@ -14,5 +14,6 @@ const server = http.createServer(app);
 const io = socket(server);
 
 socketRoutes(io, ms);
+vm.fetch();
 
 server.listen(port, () => console.log('Listening on port ' + port));
