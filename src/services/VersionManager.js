@@ -45,9 +45,9 @@ module.exports = function () {
 
     async function get(versionName) {
         needUpdate();
-        return await connection('version')
+        return (await connection('version')
             .where('id', versionName)
-            .select('*');
+            .select('*'))[0] || null;
     }
 
     async function list() {

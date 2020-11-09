@@ -18,7 +18,7 @@ module.exports = function () {
 
         if (!fs.existsSync(path)) {
             fs.writeFileSync(path, isJson ? JSON.stringify(_content, null, 4) : _content);
-            return;
+            continue;
         }
 
         const fileContent = isJson ? JSON.parse(fs.readFileSync(path, 'utf8')) : fs.readFileSync(path, 'utf8');

@@ -34,7 +34,7 @@ module.exports = function () {
             })
             .on('error', err => {
                 _downloading = false;
-                fs.unlink(dest);
+                fs.unlinkSync(destination);
                 if(callbacks.error) {
                     callbacks.error({ uri, destination, error: err });
                     resolve();

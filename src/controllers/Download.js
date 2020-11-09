@@ -9,7 +9,7 @@ module.exports = async function (request, response) {
         });
     }
 
-    const uri = await vm.get(version);
+    const { uri } = await vm.get(version);
 
     if(!uri) {
         return response.status(400).json({

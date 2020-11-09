@@ -1,7 +1,8 @@
 const buildEnv = require('./src/services/environment');
 buildEnv();
 
-require('./src/services/global');
+const bindGlobals = require('./src/services/global');
+bindGlobals();
 
 const socket = require('socket.io');
 const http = require('http');
