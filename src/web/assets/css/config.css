@@ -1,0 +1,14 @@
+#upload-map,
+#upload-map > *,
+#upload-map > * > span {
+    width: 100% !important;
+}
+
+#upload-map {
+    margin-bottom: 10px;
+}
+
+#upload-map .file-cta {
+    display: flex;
+    justify-content: center !important;
+}

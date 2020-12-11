@@ -31,6 +31,12 @@ async function downloadMap() {
         file: true
     }, await getToken());
 
+    if (blob.type === 'application/json') {
+        const { error } = await _readJsonBlob(blob);
+        fireError('Download Error', error);
+        return;
+    }
+
     _download(blob, 'map.zip');
 }
 
@@ -43,6 +49,21 @@ function _download(blob, filename) {
     a.download = filename;
     a.click();
     window.URL.revokeObjectURL(url);
+}
+
+async function _readJsonBlob(blob) {
+    fr = new FileReader();
+
+    return await new Promise((resolve, reject) => {
+        fr.onload = function() {
+            resolve(JSON.parse(this.result));
+        };
+
+        fr.onerror = reject;
+    
+        fr.readAsText(blob);
+    });
+    
 }
 
 function changeStatus(message) {

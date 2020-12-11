@@ -11,7 +11,10 @@
     <!-- LIBS -->
     <link rel="stylesheet" href="assets/libs/bulma.css">
     <script src="assets/libs/font-awesome.js"></script>
+    <script src="assets/libs/sweetalert2.js"></script>
     <!-- SELF -->
+    <link rel="stylesheet" href="assets/css/common.css" type="text/css">
+    <link rel="stylesheet" href="assets/css/config.css" type="text/css">
     <link rel="stylesheet" href="assets/css/version.css">
     <script src="assets/js/api.js"></script>
     <script src="assets/js/config.js"></script>
@@ -29,7 +32,7 @@
                 A complete Minecraft server with dashboard for you!
             </p>
         </div>
-        <div class="level-item-right has-text-centered">
+        <div class="level-item-right has-text-centered" id="controls">
             <div class="container">
                 <p class="subtitle mb-0">
                     <span id="user"></span>
@@ -49,12 +52,9 @@
         </div>
     </section>
     <section class="section">
-        <h1 class="title">Users</h1>
-    </section>
-    <section class="section">
         <h1 class="title">Map</h1>
-        <div class="level" style="justify-content: space-evenly;">
-            <div class="file is-warning level-left">
+        <div class="container" style="justify-content: space-evenly;">
+            <div class="file is-warning" id="upload-map">
                 <label class="file-label">
                     <input class="file-input" type="file">
                     <span class="file-cta">
@@ -67,7 +67,7 @@
                     </span>
                 </label>
             </div>
-            <button class="button is-primary level-right" onclick="downloadMap()">Download current map</button>
+            <button class="button is-primary is-fullwidth" onclick="downloadMap()">Download current map</button>
         </div>
     </section>
     <section class="section">

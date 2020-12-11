@@ -1,0 +1,17 @@
+#controls {
+    padding: 20px;
+}
+
+#controls .level .level-item {
+    flex-grow: unset !important;
+}
+
+#controls .level {
+    justify-content: flex-end !important;
+}
+
+@media only screen and (max-width: 768px) {
+    #controls .level {
+        justify-content: center !important;
+    }    
+}

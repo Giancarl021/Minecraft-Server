@@ -14,13 +14,14 @@ Dashboard for Minecraft Server
 ### Command
 
 ```bash
-docker run -p 80:80 -p 25565:25565 -e ADMIN_USERNAME='admin' -e ADMIN_USERNAME='changeme' Giancarl021/Minecraft-Server
+docker run -p 80:80 -p 25565:25565 -e EULA=TRUE -e ADMIN_USERNAME='admin' -e ADMIN_PASSWORD='changeme' Giancarl021/Minecraft-Server
 ```
 
 ### Flags
 
 * ``-p 80:80``: The Dashboard port
 * ``-p 25565:25565``: The Minecraft Server port
+* ``-e EULA=TRUE``: Confirmation you read the EULA (Required)
 * ``-e ADMIN_USERNAME='admin'``: The admin username, for first configuration
 * ``-e ADMIN_USERNAME='admin'``: The admin password, for first configuration
 

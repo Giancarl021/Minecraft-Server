@@ -1,8 +1,15 @@
+const dotenv = require('dotenv');
 const fs = require('fs');
 const locate = require('../util/locate');
 const files = require('./files');
 
 module.exports = function () {
+    dotenv.config();
+    if (String(process.env.EULA).toLowerCase() !== 'true') {
+        console.log('EULA Environment variable is not set to TRUE\nAborting...');
+        process.exit(-1);
+    }
+
     const dirs = ['bin', 'data', 'temp'];
 
     dirs.forEach(dir => {

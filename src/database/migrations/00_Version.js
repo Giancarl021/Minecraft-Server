@@ -3,6 +3,7 @@ module.exports = {
         return knex.schema.createTable('version', table => {
             table.string('id').primary();
             table.string('uri').notNullable();
+            table.integer('index').notNullable();
         });
     },
 

@@ -1,6 +1,6 @@
 const bcrypt = require('bcrypt');
 const generateToken = require('../util/generate-token');
-const connection = require('../database/connection');
+const login = require('../services/login');
 
 module.exports = async function (request, response) {
     const { username, password } = request.body;
@@ -11,17 +11,15 @@ module.exports = async function (request, response) {
         });
     }
 
-    const rows = await connection('user').select('*').where('username', username);
+    const user = login(username);
 
-    if (!rows.length) {
+    if (!user) {
         return response.status(400).json({
             error: 'An user with this username does not exists'
         });
     }
 
-    const user = rows[0].username;
-
-    const result = bcrypt.compareSync(password, rows[0].password);
+    const result = bcrypt.compareSync(password, user.password);
 
     if (!result) {
         return response.status(400).json({
@@ -30,13 +28,13 @@ module.exports = async function (request, response) {
     }
 
     const { bearerToken, expiresIn, refreshToken } = generateToken({
-        username: user
+        username
     });
 
     refreshTokens[refreshToken] = { username, password };
 
     return response.status(200).json({
-        user,
+        user: username,
         bearer_token: bearerToken,
         expires_in: expiresIn,
         refresh_token: refreshToken

@@ -15,9 +15,10 @@ module.exports = function () {
 
         const remote = (await _get(BASE_URL))
             .versions
-            .map(version => ({
+            .map((version, index) => ({
                 id: version.id,
-                uri: version.url
+                uri: version.url,
+                index
             }));
 
         const inserts = remote
@@ -52,10 +53,16 @@ module.exports = function () {
 
     async function list() {
         needUpdate();
-        return (
+
+        const versions = (
             await connection('version')
+                .where('uri', '<>', 0)
+                .orderBy('index', 'asc')
                 .select('id')
-            ).map(version => version.id);
+            )
+            .map(v => v.id);
+
+        return versions;
     }
 
     function isFetching() {
@@ -70,21 +77,6 @@ module.exports = function () {
         const baseIds = base.map(version => version.id);
 
         return version => !baseIds.includes(version.id);
-
-        function doesNotExists(version) {
-            return !baseIds.includes(version.id);
-        }
-
-        function hasDifferentUri(version) {
-            const baseItem = fromId(version.id);
-            if (!baseItem) return true;
-            return baseItem.uri !== version.uri;
-        }
-
-        function fromId(id) {
-            const index = baseIds.indexOf(id);
-            return index !== -1 ? base[index] : null;
-        }
     }
 
     async function _fetchVersionUri(version) {
@@ -93,7 +85,8 @@ module.exports = function () {
 
         return {
             id: version.id,
-            uri
+            uri,
+            index: version.index
         }
     }
 
