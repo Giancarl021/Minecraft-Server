@@ -6,7 +6,12 @@ async function get(url, options, token = null) {
     const Options = options || {};
     const uri = URI + url;
     let _headers = { 'content-type': 'application/json' };
-    if (Options.headers) _headers = { ..._headers, ...Options.headers };
+    if (Options.headers) {
+        _headers = { ..._headers, ...Options.headers };
+        if (Options.headers['content-type'] === null) {
+            delete _headers['content-type'];
+        }
+    }
     if(token) _headers.authorization = 'Bearer ' + token;
 
     const _options = {
@@ -14,6 +19,7 @@ async function get(url, options, token = null) {
         ...Options,
         headers: new Headers(_headers),
     };
+
     if (Options.body) _options.body = JSON.stringify(options.body);
 
     const response = await fetch(uri, _options);

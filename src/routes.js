@@ -34,7 +34,6 @@ routes.post('/download', Auth, Download);
 routes.get('/version', Auth, Version);
 routes.get('/versions', Auth, Versions);
 routes.get('/map', Auth, Map.Get);
-routes.post('/map', Auth, Map.Post);
 
 routes.get('/ram', Auth, Ram.Get);
 routes.post('/ram', Auth, Ram.Post);

@@ -7,6 +7,7 @@ async function init() {
     close = document.getElementById('close');
     preserveMap = document.getElementById('preserve-map');
     preserveData = document.getElementById('preserve-data');
+    mapInput = document.getElementById('map-input');
 
     document.querySelector('#user').innerText = USER;
 

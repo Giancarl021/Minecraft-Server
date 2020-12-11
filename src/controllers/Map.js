@@ -28,9 +28,5 @@ module.exports = {
             }));
 
         response.zip(children, 'map.zip');
-    },
-
-    async Post(request, response) {
-        
     }
 }
