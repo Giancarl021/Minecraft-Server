@@ -10,7 +10,7 @@ module.exports = function () {
         process.exit(-1);
     }
 
-    const dirs = ['bin', 'data', 'temp'];
+    const dirs = ['bin', 'data', 'temp', 'db'];
 
     dirs.forEach(dir => {
         const path = locate(dir);
