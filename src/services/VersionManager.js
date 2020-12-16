@@ -56,7 +56,7 @@ module.exports = function () {
 
         const versions = (
             await connection('version')
-                .where('uri', '<>', 0)
+                .whereNotNull('uri')
                 .orderBy('index', 'asc')
                 .select('id')
             )

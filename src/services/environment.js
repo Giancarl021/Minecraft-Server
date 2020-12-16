@@ -2,10 +2,10 @@ const dotenv = require('dotenv');
 const fs = require('fs');
 const locate = require('../util/locate');
 const files = require('./files');
-const knex = require('../database/connection');
 
 module.exports = async function () {
     dotenv.config();
+    const knex = require('../database/connection');
     if (String(process.env.EULA).toLowerCase() !== 'true') {
         console.log('EULA Environment variable is not set to TRUE\nAborting...');
         process.exit(-1);
