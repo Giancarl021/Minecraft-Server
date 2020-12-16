@@ -2,15 +2,16 @@ const dotenv = require('dotenv');
 const fs = require('fs');
 const locate = require('../util/locate');
 const files = require('./files');
+const knex = require('../database/connection');
 
-module.exports = function () {
+module.exports = async function () {
     dotenv.config();
     if (String(process.env.EULA).toLowerCase() !== 'true') {
         console.log('EULA Environment variable is not set to TRUE\nAborting...');
         process.exit(-1);
     }
 
-    const dirs = ['bin', 'data', 'temp', 'db'];
+    const dirs = ['data', 'temp', 'data/db', 'data/bin'];
 
     dirs.forEach(dir => {
         const path = locate(dir);
@@ -34,6 +35,9 @@ module.exports = function () {
 
         fs.writeFileSync(path, isJson ? JSON.stringify(fileContent, null, 4): fileContent);
     }
+
+    await knex.migrate.latest();
+    await knex.seed.run();
 }
 
 function _parseFunctions(object) {

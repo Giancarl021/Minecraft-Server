@@ -2,6 +2,9 @@ const locate = require('../util/locate');
 const writeJson = require('../util/writeJson');
 const https = require('https');
 const fs = require('fs');
+const { promisify } = require('util');
+var move = require('mv');
+const mv = promisify(move);
 
 module.exports = function () {
 
@@ -46,7 +49,7 @@ module.exports = function () {
 
         if(callbacks.configuring) callbacks.configuring();
 
-        fs.renameSync(path, locate('bin/server.jar'));
+        await mv(path, locate('data/bin/server.jar'));
         writeJson('data/server.json', { version }, true);
 
         if(callbacks.configured) callbacks.configured();

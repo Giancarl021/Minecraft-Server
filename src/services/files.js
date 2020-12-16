@@ -2,7 +2,7 @@ const { randomBytes } = require('crypto');
 
 module.exports = {
     'data/server.json': {
-        location: 'bin/server.jar',
+        location: 'data/bin/server.jar',
         ramSize: '512M',
         version: ''
     },
@@ -12,5 +12,5 @@ module.exports = {
             return randomBytes(Math.floor((Math.random() * 24) + 16)).toString('hex');
         }
     },
-    'bin/eula.txt': 'eula=true'
+    'data/bin/eula.txt': 'eula=true'
 };

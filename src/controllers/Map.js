@@ -13,7 +13,7 @@ module.exports = {
 
         const regex = new RegExp(`.*?${level}`);
 
-        const path = locate('bin/' + level);
+        const path = locate('data/bin/' + level);
 
         if (!level || !fs.existsSync(path)) {
             return response.status(400).json({

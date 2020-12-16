@@ -18,7 +18,7 @@ module.exports = class MinecraftServer {
         if (this._jar || this.status() === 'Disabled') return;
         this._statusCallback('Starting...');
         this._jar = cp.spawn('java', ['-jar', `-Xmx${this._server.ramSize}`, `-Xms${this._server.ramSize}`, this._path, 'nogui'], {
-            cwd: path.basename(path.dirname(this._path)),
+            cwd: path.dirname(this._path),
         });
 
         this._jar.stdout.on('data', this._messageCallback);
@@ -74,7 +74,7 @@ module.exports = class MinecraftServer {
     }
 
     properties() {
-        const path = locate('bin/server.properties');
+        const path = locate('data/bin/server.properties');
         if (this.status() === 'Disabled' || !fs.existsSync(path)) return {};
         const properties = fs.readFileSync(path, 'utf8');
 
@@ -103,7 +103,7 @@ module.exports = class MinecraftServer {
     }
 
     setProperties(props) {
-        const path = locate('bin/server.properties');
+        const path = locate('data/bin/server.properties');
         const r = [];
         for (const key in props) {
             r.push(`${key}=${props[key].toString()}`);
@@ -117,18 +117,13 @@ module.exports = class MinecraftServer {
     }
 
     deleteMap() {
-        fs.rmdirSync(locate('bin/world'), {
+        fs.rmdirSync(locate('data/bin/world'), {
             recursive: true
         });
     }
 
-    changeMap(zipFile) {
-        this.deleteMap();
-        // Code
-    }
-
     deleteData() {
-        const bin = locate('bin');
+        const bin = locate('data/bin');
         const bind = path => bin + '/' + path;
         fs.rmdirSync(bind('logs'), {
             recursive: true

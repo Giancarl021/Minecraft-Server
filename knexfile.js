@@ -1,9 +1,9 @@
 const path = require('path');
 const fs = require('fs');
 
-const pathToDb = path.resolve(__dirname, 'db');
+const pathToDb = path.resolve(__dirname, 'data', 'db');
 
-if (!fs.existsSync(pathToDb)) fs.mkdirSync(pathToDb);
+if (!fs.existsSync(pathToDb)) fs.mkdirSync(pathToDb, { recursive: true });
 
 module.exports = {
     client: 'sqlite3',
