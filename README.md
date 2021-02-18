@@ -1,10 +1,3 @@
-# TODO
-
-- [X] Opções de preservação de dados e mapa na troca de versões
-- [ ] Gerenciamento de Usuários
-- [X] Controle de RAM alocada pelo servidor
-- [ ] Upload/Download de Mapa
-
 # Minecraft-Server
 
 Dashboard for Minecraft Server
@@ -14,7 +7,7 @@ Dashboard for Minecraft Server
 ### Command
 
 ```bash
-docker run -p 80:80 -p 25565:25565 -e EULA=TRUE -e ADMIN_USERNAME='admin' -e ADMIN_PASSWORD='changeme' Giancarl021/Minecraft-Server
+docker run -p 80:80 -p 25565:25565 -e EULA=TRUE -e ADMIN_USERNAME='admin' -e ADMIN_PASSWORD='changeme' -v path/to/file:usr/app/data Giancarl021/Minecraft-Server
 ```
 
 ### Flags
