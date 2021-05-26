@@ -1,10 +1,9 @@
 node_modules/
 data/
-bin/
 docs/
-db/
 temp/
 *.md
 **/*.sqlite
 *.env
 yarn.lock
+.azure/
