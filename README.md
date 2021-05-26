@@ -1,13 +1,12 @@
-# Minecraft-Server
+# Minecon
 
-Dashboard for Minecraft Server
-
+Mine(craft)Con(tainerized) its a dashboard for Minecraft servers
 ## Installation
 
 ### Command
 
 ```bash
-docker run -p 80:80 -p 25565:25565 -e EULA=TRUE -e ADMIN_USERNAME='admin' -e ADMIN_PASSWORD='changeme' -v path/to/file:usr/app/data Giancarl021/Minecraft-Server
+docker run -p 80:80 -p 25565:25565 -e EULA=TRUE -e ADMIN_USERNAME='admin' -e ADMIN_PASSWORD='changeme' -v path/to/file:/usr/app/data giancarl021/minecon
 ```
 
 ### Flags
@@ -25,7 +24,6 @@ docker run -p 80:80 -p 25565:25565 -e EULA=TRUE -e ADMIN_USERNAME='admin' -e ADM
 
 ### Selecting a version
 
-
 ## Dashboard
 
 ### Start/Stop/Restart the server
@@ -33,18 +31,6 @@ docker run -p 80:80 -p 25565:25565 -e EULA=TRUE -e ADMIN_USERNAME='admin' -e ADM
 ### Send a command to server
 
 ### Change properties of the server
-
-
-## User Management
-
-### Roles
-
-### Creating a new user
-
-### Editing an existing user
-
-### Removing a user
-
 
 ## Playing
 
