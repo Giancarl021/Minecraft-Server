@@ -6,7 +6,7 @@ Mine(craft)Con(tainerized) its a dashboard for Minecraft servers
 ### Command
 
 ```bash
-docker run -p 80:80 -p 25565:25565 -e EULA=TRUE -e ADMIN_USERNAME='admin' -e ADMIN_PASSWORD='changeme' -v path/to/file:/usr/app/data giancarl021/minecon
+docker run -p 80:80 -p 25565:25565 -e EULA=TRUE -e ADMIN_USERNAME=admin -e ADMIN_PASSWORD=changeme -v path/to/file:/usr/app/data giancarl021/minecon
 ```
 
 ### Flags
@@ -14,8 +14,8 @@ docker run -p 80:80 -p 25565:25565 -e EULA=TRUE -e ADMIN_USERNAME='admin' -e ADM
 * ``-p 80:80``: The Dashboard port
 * ``-p 25565:25565``: The Minecraft Server port
 * ``-e EULA=TRUE``: Confirmation you read the EULA (Required)
-* ``-e ADMIN_USERNAME='admin'``: The admin username, for first configuration
-* ``-e ADMIN_USERNAME='admin'``: The admin password, for first configuration
+* ``-e ADMIN_USERNAME=admin``: The admin username
+* ``-e ADMIN_PASSWORD=changeme``: The admin password
 
 
 ## First configuration
