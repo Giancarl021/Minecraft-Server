@@ -22,6 +22,8 @@ module.exports = class MinecraftServer {
         });
 
         this._jar.stdout.on('data', this._messageCallback);
+        this._jar.stderr.on('data', this._messageCallback);
+
         this._statusCallback('Running');
     }
 
