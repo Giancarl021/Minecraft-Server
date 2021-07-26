@@ -88,3 +88,16 @@ The last option on the configuration page is the version. Here it is possible to
 > **Important:** Be aware that the application does not checks for compatibility between the versions, use the `Preserve Map` and `Preserve Data` at your own risk
 
 After selecting the new version, the `Download` button will appear. Clicking on it will download and apply the new version of the server.
+
+## Azure SQL as Version database
+
+For reasons of compatibility, the project allows the use of an Azure SQL instance as a Version database.
+### Environment Variables
+
+```env
+USE_AZURE_SQL=<True|False>
+SQL_USERNAME="<username>"
+SQL_PASSWORD="<password>"
+SQL_SERVER="<server>"
+SQL_DATABASE="<database>"
+```
