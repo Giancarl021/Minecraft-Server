@@ -2,7 +2,7 @@
 
 Mine(craft)Con(tainerized) its a dashboard for Minecraft servers.
 
-Full documentation [here](https://github.com/Giancarl021/Minecraft-Server#minecon);
+Full documentation [here](https://github.com/Giancarl021/Minecraft-Server#minecon).
 ## Installation
 
 Docker is required for this application.
