@@ -31,12 +31,21 @@ module.exports = function () {
 
         console.log(`Fetching ${inserts.length} versions into database...`);
 
+        let i = 0;
+
         for (const version of inserts) {
             const row = await _fetchVersionUri(version);
+
+            if (!row.uri) {
+                i++;
+                continue;
+            }
 
             await connection('version')
                 .insert([ row ]);
         }
+
+        if (i) console.log(`${i} versions skipped`);
 
         console.log('Database updated successfully');
 
