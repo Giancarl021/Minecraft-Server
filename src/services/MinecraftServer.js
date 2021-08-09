@@ -12,6 +12,11 @@ module.exports = class MinecraftServer {
         this._disabled = !fs.existsSync(this._path);
         this._messageCallback = () => {};
         this._statusCallback = () => {};
+        this._onCrash = () => {
+            this._statusCallback('Crashed');
+            this._jar = null;
+            this._server = loadJSON('data/server.json');
+        };
     }
 
     start() {
@@ -23,6 +28,7 @@ module.exports = class MinecraftServer {
 
         this._jar.stdout.on('data', this._messageCallback);
         this._jar.stderr.on('data', this._messageCallback);
+        this._jar.on('exit', this._onCrash);
 
         this._statusCallback('Running');
     }
@@ -48,6 +54,7 @@ module.exports = class MinecraftServer {
     async stop() {
         if (!this._jar) return;
         this._statusCallback('Stopping...');
+        this._jar.off('exit', this._onCrash); 
         this.exec('stop');
         await new Promise((resolve, reject) => {
             try {
@@ -66,7 +73,7 @@ module.exports = class MinecraftServer {
 
     exec(command) {
         const status = this.status();
-        if (status === 'Disabled' || status === 'Stopped') return;
+        if (status === 'Disabled' || status === 'Stopped' || status === 'Crashed') return;
 
         this._jar.stdin.write(command + '\n');
     }

@@ -97,7 +97,7 @@ async function send(command) {
 
 function changeStatus(message) {
     status.innerText = message;
-    if (message === 'Stopped' || message === 'Stopping...') {
+    if (message === 'Stopped' || message === 'Stopping...' || message === 'Crashed') {
         terminal.style.pointerEvents = 'none';
         terminal.style.opacity = '.6';
         applyAndRestartBtn.setAttribute('disabled', 'true');
