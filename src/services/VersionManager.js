@@ -10,8 +10,10 @@ module.exports = function () {
     async function fetch() {
         status = true;
 
-        const local = await connection('version')
-            .select('*');
+        const local = [
+            ...(await connection('version').select('id', 'index')),
+            ...(await connection('ignored').select('id', 'index'))
+        ];
 
         const remote = (await _get(BASE_URL))
             .versions
@@ -37,6 +39,14 @@ module.exports = function () {
             const row = await _fetchVersionUri(version);
 
             if (!row.uri) {
+                const ignoredRow = {
+                    id: row.id,
+                    index: row.index
+                };
+                
+                await connection('ignored')
+                    .insert([ ignoredRow ]);
+
                 i++;
                 continue;
             }
