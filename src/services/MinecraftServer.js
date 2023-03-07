@@ -126,17 +126,23 @@ module.exports = class MinecraftServer {
     }
 
     deleteMap() {
-        fs.rmdirSync(locate('data/bin/world'), {
-            recursive: true
-        });
+        const path = locate('data/bin/world');
+        if (fs.existsSync(path)) {
+            fs.rmdirSync(path, {
+                recursive: true
+            });
+        }
     }
 
     deleteData() {
         const bin = locate('data/bin');
         const bind = path => bin + '/' + path;
-        fs.rmdirSync(bind('logs'), {
-            recursive: true
-        });
+        
+        if (fs.existsSync(bind('logs'))) {
+            fs.rmdirSync(bind('logs'), {
+                recursive: true
+            });
+        }
         fs.readdirSync(bin)
             .filter(f => fs.lstatSync(bind(f)).isFile() && !['server.jar', 'eula.txt'].includes(f))
             .forEach(f => fs.unlinkSync(bind(f)));
